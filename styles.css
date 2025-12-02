@@ -1,131 +1,220 @@
-/* Reset simples para garantir consistência */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --bg-light: #e9f2ff;
+  --bg-dark: #1e1e2f;
+  --text-light: #333;
+  --text-dark: #ddd;
+  --primary-light: #4fa3d1;
+  --primary-dark: #6ea8db;
+  --bg-header-light: #2a5cae;
+  --bg-header-dark: #163273;
+  --input-bg-light: #fff;
+  --input-bg-dark: #2a2a42;
+  --shadow-light: rgba(0,0,0,0.15);
+  --shadow-dark: rgba(0,0,0,0.6);
 }
 
-/* Corpo e fundo */
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #6e7fdb, #4fa3d1);
-  min-height: 100vh;
+  background: var(--bg-light);
+  color: var(--text-light);
+  margin: 0;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  color: #333;
+  min-height: 100vh;
+  transition: background-color 0.4s, color 0.4s;
+}
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
 }
 
-/* Cabeçalho fixo no topo */
+/* Cabeçalho */
 header {
-  background-color: #2a5cae; /* fundo azul mais escuro */
+  background-color: var(--bg-header-light);
   width: 100%;
   padding: 20px 0;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px var(--shadow-light);
   text-align: center;
   color: white;
   margin-bottom: 30px;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
+  transition: background-color 0.4s;
 }
-
+body.dark-mode header {
+  background-color: var(--bg-header-dark);
+  box-shadow: 0 3px 10px var(--shadow-dark);
+}
 header h1 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 5px;
 }
-
 header p {
   font-size: 16px;
   font-weight: 500;
 }
 
-/* Conteúdo principal */
+/* Layout geral */
 main {
   width: 100%;
-  max-width: 440px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
 }
-
-/* Calculadora */
-.calculator {
-  background-color: #fff;
-  padding: 40px 30px;
+.calculator, .history-container, .chart-container, .controls {
+  background-color: var(--input-bg-light);
+  padding: 30px 25px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px var(--shadow-light);
+  transition: background-color 0.4s, box-shadow 0.4s;
+
+}
+body.dark-mode .calculator,
+body.dark-mode .history-container,
+body.dark-mode .chart-container,
+body.dark-mode .controls {
+  background-color: var(--input-bg-dark);
+  box-shadow: 0 8px 20px var(--shadow-dark);
+}
+h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
   text-align: center;
-}
-
-.calculator h2 {
-  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 25px;
-  color: #222;
 }
-
-.calculator input {
+input[type="number"] {
   width: 100%;
   padding: 14px 18px;
-  margin: 12px 0;
+  margin: 10px 0;
   border-radius: 10px;
   border: 1.5px solid #ccc;
   font-size: 16px;
-  transition: 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--input-bg-light);
+  color: inherit;
 }
-
-.calculator input:focus {
-  border-color: #4fa3d1;
-  box-shadow: 0 0 8px rgba(79, 163, 209, 0.6);
+body.dark-mode input[type="number"] {
+  border-color: #555;
+  background-color: var(--input-bg-dark);
+}
+input[type="number"]:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 8px rgba(79, 163, 209, 0.8);
   outline: none;
 }
-
-.calculator button {
-  width: 100%;
-  padding: 15px;
-  background-color: #4fa3d1;
-  border: none;
-  border-radius: 10px;
-  color: white;
+body.dark-mode input[type="number"]:focus {
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 8px rgba(110, 168, 219, 0.8);
+}
+button {
+  cursor: pointer;
   font-size: 18px;
   font-weight: 600;
-  cursor: pointer;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: var(--primary-light);
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
-
-.calculator button:hover {
+button:hover {
   background-color: #3d8db8;
 }
-
-/* Resultado */
+body.dark-mode button {
+  background-color: var(--primary-dark);
+}
+body.dark-mode button:hover {
+  background-color: #2d638b;
+}
 .result {
   margin-top: 25px;
   font-size: 18px;
   font-weight: 600;
-  background-color: #e9f2ff;
+  background-color: var(--bg-light);
   padding: 14px 18px;
   border-radius: 12px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.07);
-  min-height: 40px;
+  box-shadow: 0 3px 15px var(--shadow-light);
+  min-height: 56px;
+  white-space: pre-line;
+  transition: background-color 0.4s, box-shadow 0.4s;
 }
-
-/* Container do gráfico */
+body.dark-mode .result {
+  background-color: #2a2a42;
+  box-shadow: 0 3px 15px var(--shadow-dark);
+}
+.error {
+  color: #b31217;
+  font-weight: 700;
+}
+.history-list {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 16px;
+}
+.history-list li {
+  margin: 8px 0;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+body.dark-mode .history-list li {
+  border-bottom: 1px solid #555;
+}
 .chart-container {
-  background-color: white;
-  padding: 25px;
+  padding: 20px 25px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 20px var(--shadow-light);
+  background-color: var(--input-bg-light);
+  transition: background-color 0.4s, box-shadow 0.4s;
 }
-
-/* Tamanho do canvas para o gráfico */
+body.dark-mode .chart-container {
+  background-color: var(--input-bg-dark);
+  box-shadow: 0 10px 20px var(--shadow-dark);
+}
 canvas#graphCanvas {
   width: 100% !important;
-  max-width: 400px;
+  max-width: 460px;
   height: 300px !important;
   border-radius: 15px;
   display: block;
   margin: 0 auto;
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.controls button {
+  flex: 1;
+  max-width: 150px;
+}
+#qrCodeContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+#qrCode {
+  display: inline-block; /* garante que a imagem fique centralizada pelo text-align */
+}
+@media(max-width:580px) {
+  main {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  button {
+    font-size: 16px;
+    padding: 12px;
+  }
+  input[type="number"] {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+  .history-list {
+    max-height: 120px;
+  }
 }
