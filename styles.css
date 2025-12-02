@@ -1,54 +1,80 @@
-/* Corpo da página com um gradiente suave */
+/* Reset simples para garantir consistência */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo e fundo */
 body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #6e7fdb, #4fa3d1);
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  box-sizing: border-box;
+  padding: 20px;
+  color: #333;
 }
 
-/* Container principal da calculadora */
+/* Cabeçalho fixo no topo */
+header {
+  background-color: #2a5cae; /* fundo azul mais escuro */
+  width: 100%;
+  padding: 20px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+header p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Conteúdo principal */
+main {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Calculadora */
 .calculator {
   background-color: #fff;
-  padding: 40px;
+  padding: 40px 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 400px;  /* Limita a largura da calculadora */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
-  transition: transform 0.3s ease-in-out;
-  box-sizing: border-box;
 }
 
-/* Adiciona um efeito de hover ao container */
-.calculator:hover {
-  transform: translateY(-10px);
-}
-
-/* Estilo do título */
-h2 {
-  font-size: 26px;
-  color: #333;
+.calculator h2 {
+  font-size: 24px;
+  font-weight: 700;
   margin-bottom: 25px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  color: #222;
 }
 
-/* Estilo dos inputs */
 .calculator input {
   width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
+  padding: 14px 18px;
+  margin: 12px 0;
   border-radius: 10px;
+  border: 1.5px solid #ccc;
   font-size: 16px;
-  background-color: #f9f9f9;
-  color: #333;
-  transition: all 0.3s ease-in-out;
-  box-sizing: border-box;
+  transition: 0.3s ease;
 }
 
 .calculator input:focus {
@@ -57,51 +83,49 @@ h2 {
   outline: none;
 }
 
-/* Estilo do botão */
 .calculator button {
   width: 100%;
   padding: 15px;
   background-color: #4fa3d1;
-  color: white;
   border: none;
   border-radius: 10px;
+  color: white;
   font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .calculator button:hover {
   background-color: #3d8db8;
 }
 
-/* Estilo do resultado */
+/* Resultado */
 .result {
-  margin-top: 20px;
+  margin-top: 25px;
   font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  padding: 15px;
-  background-color: #f0f8ff;
+  font-weight: 600;
+  background-color: #e9f2ff;
+  padding: 14px 18px;
   border-radius: 12px;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  box-sizing: border-box;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+  min-height: 40px;
 }
 
-.result p {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
+/* Container do gráfico */
+.chart-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
 }
 
-.result.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.result.error {
-  background-color: #f8d7da;
-  color: #721c24;
+/* Tamanho do canvas para o gráfico */
+canvas#graphCanvas {
+  width: 100% !important;
+  max-width: 400px;
+  height: 300px !important;
+  border-radius: 15px;
+  display: block;
+  margin: 0 auto;
 }
